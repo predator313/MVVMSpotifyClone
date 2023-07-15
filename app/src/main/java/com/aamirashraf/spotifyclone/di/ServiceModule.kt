@@ -1,6 +1,7 @@
 package com.aamirashraf.spotifyclone.di
 
 import android.content.Context
+import com.aamirashraf.spotifyclone.data.remote.MusicDatabase
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.audio.AudioAttributes
@@ -16,6 +17,10 @@ import dagger.hilt.android.scopes.ServiceScoped
 @Module
 @InstallIn(ServiceComponent::class)
 class ServiceModule {
+    @ServiceScoped
+    @Provides
+    fun provideMusicDatabase()=MusicDatabase()
+
     @ServiceScoped    //single instance within same service we use singleton when the live cycle is as long as application
     @Provides
     fun provideAudioAttribute() = AudioAttributes.Builder()
