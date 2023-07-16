@@ -14,6 +14,7 @@ import com.aamirashraf.spotifyclone.exoplayer.callbacks.MusicPlayerEventListener
 import com.aamirashraf.spotifyclone.exoplayer.callbacks.MusicPlayerNotificationListener
 import com.aamirashraf.spotifyclone.other.Constants.MEDIA_ROOT_ID
 import com.aamirashraf.spotifyclone.other.Constants.MUSIC_SERVICE_TAG
+import com.aamirashraf.spotifyclone.other.Constants.NETWORK_ERROR
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
@@ -139,7 +140,10 @@ class MusicService :MediaBrowserServiceCompat() {
                             preparePlayer(firebaseMusicSource.songs,firebaseMusicSource.songs[0],false)
                             isPlayerInitialized=true
                         }
-                    }else result.sendResult(null)
+                    }else{
+                        mediaSession.sendSessionEvent(NETWORK_ERROR,null)
+                        result.sendResult(null)
+                    }
 
                 }
                 if (!resultsSent){
